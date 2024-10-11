@@ -2,6 +2,10 @@ package main
 
 import "fmt"
 
+type Employee interface {
+	CalculateSalary() int
+}
+
 type FullTime struct {
 	amount   int
 	noOfDays int
@@ -17,12 +21,12 @@ type FreeLancer struct {
 	noOfHours int
 }
 
-type Salary interface {
-	CalculateSalary() int
+func CalculateSalary(e Employee) int {
+	return e.CalculateSalary()
 }
 
-func (f FullTime) CalculateSalary() int {
-	return f.noOfDays * f.amount
+func (c FullTime) CalculateSalary() int {
+	return c.noOfDays * c.amount
 }
 
 func (c Contractor) CalculateSalary() int {
@@ -49,7 +53,7 @@ func main() {
 		noOfHours: 20,
 	}
 
-	fmt.Println("FullTime salary: ", fullTime.CalculateSalary())
-	fmt.Println("Contractor salary: ", contractor.CalculateSalary())
-	fmt.Println("FreeLancer salary: ", freelancer.CalculateSalary())
+	fmt.Println("FullTime salary: ", CalculateSalary(fullTime))
+	fmt.Println("Contractor salary: ", CalculateSalary(contractor))
+	fmt.Println("FreeLancer salary: ", CalculateSalary(freelancer))
 }
