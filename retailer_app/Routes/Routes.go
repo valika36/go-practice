@@ -18,6 +18,7 @@ func SetupRouter() *gin.Engine {
 		grp1.GET("order/:id", Controllers.GetOrderById)
 		grp1.GET("order/history/:customerId", Controllers.GetCustomerOrders)
 		grp1.GET("transactions", Controllers.GetAllTransactions)
+		grp1.POST("customer", Controllers.CreateCustomer)
 	}
 	return r
 }

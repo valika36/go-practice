@@ -9,7 +9,7 @@ import (
 
 func CreateOrder(c *gin.Context) {
 	var order Models.OrderRequest
-	c.BindJSON(order)
+	c.BindJSON(&order)
 	err := Models.CreateOrder(&order)
 	if err != nil {
 		fmt.Println(err.Error())

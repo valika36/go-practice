@@ -9,7 +9,7 @@ import (
 
 func CreateProduct(c *gin.Context) {
 	var product Models.Product
-	c.BindJSON(product)
+	c.BindJSON(&product)
 	err := Models.CreateProduct(&product)
 	if err != nil {
 		fmt.Println(err.Error())

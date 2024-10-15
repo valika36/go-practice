@@ -1,6 +1,8 @@
 package Models
 
 import (
+	"github.com/google/uuid"
+	"github.com/jinzhu/gorm"
 	"time"
 )
 
@@ -13,7 +15,7 @@ const (
 )
 
 type Order struct {
-	Id          string     `gorm:"type:char(36);primaryKey"`
+	Id          string     `gorm:"type:char(36);primaryKey" json:"id"`
 	CustomerId  string     `json:"customerId"`
 	Customer    Customer   `gorm:"foreignKey:CustomerId;references:Id"`
 	ProductId   string     `json:"productId"`
@@ -22,6 +24,11 @@ type Order struct {
 	TotalPrice  uint       `json:"totalPrice"`
 	Status      StatusType `json:"status"`
 	CreatedTime time.Time  `json:"createdTime"`
+}
+
+func (o *Order) BeforeCreate(tx *gorm.DB) (err error) {
+	o.Id = uuid.New().String()
+	return
 }
 
 func (o *Order) TableName() string {
